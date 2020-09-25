@@ -15,7 +15,7 @@
             <div class="col-md-8 offset-md-2">
                 <h2> {{$post->title}} </h2>
                 <h6>Published: {{ date('M j, Y', strtotime($post->created_at)) }}</h6>
-                <p class="text-justify"> {{substr($post->body, 0,250)}}{{ strlen($post->body) > 250 ? "..." : ""}} </p>
+                <p class="text-justify"> {!! substr(strip_tags($post->body), 0,250) !!}{{ strlen(strip_tags($post->body)) > 250 ? "..." : ""}} </p>
                 <a href="{{route('blog.single', $post->slug)}}" class="btn btn-primary btn-sm"> Read More </a>
                 @if (!($loop->last))
                     <hr>

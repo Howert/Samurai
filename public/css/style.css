@@ -1,0 +1,20 @@
+.author-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: left;
+}
+
+.author-name{
+    float: left;
+    margin: 5px 30px;
+}
+
+.comment-content {
+    clear: both;
+    margin-left: 80px;
+}
+
+h2>span{
+    margin-right: 20px;
+}

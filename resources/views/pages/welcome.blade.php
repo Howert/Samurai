@@ -18,7 +18,7 @@
 					@foreach ($posts as $posts)
 						<div class="post my-4">
 							<h3> {{$posts->title}}</h3>
-							<p class="text-justify"> {{$posts->body}} </p>
+							<p class="text-justify"> {!! strip_tags($posts->body) !!} </p>
 							<a class="btn btn-primary" href="{{ url('blog/'.$posts->slug) }}">Read The Post</a>
 						</div>
 						@if (!($loop->last))

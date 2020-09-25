@@ -4,10 +4,62 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8">            
+
             <h1> {{$post->title}}</h1>
 
-            <p class="lead text-justify">{{$post->body}}</p>
+            @if ($post->image)
+            <div>
+            <img src="{{ asset('images/'.$post->image)}}" alt="" class="img-fluid my-4">
+            </div>
+                
+            @endif
+
+            <p class="lead text-justify">{!! $post->body !!}</p>
+            @if ($post->comment->count() > 0)
+            <hr>
+            @endif
+            
+            <div>
+                @foreach ($post->tags as $tag)
+                    <span class="badge badge-secondary">{{$tag->name}}</span>
+                
+                @endforeach
+            </div>
+
+            @if ($post->comment->count() > 0)
+            <div class="backend-comments">
+                <h3 class="my-3">{{ $post->comment->count()}} Comments</h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>                            
+                            <th>Comment</th>
+                            <th width="50px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($post->comment as $comment)
+                        <tr>                        
+                            <td>{{$comment->name}}</td>                            
+                            <td><p class="text-justify">{{$comment->comment}}</p></td>
+                            <td>
+                            <a href="{{ route('comments.edit', $comment->id)}}" class=""><span class="fa fa-edit"></span></a>
+                            <a href="{{ route('comments.delete', $comment->id)}}" class=""><span class="fa fa-trash"></span></a>
+                                
+                            </td>
+                        </tr>                            
+                        @endforeach                       
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+                
+            @endif
+           
+
         </div>
         <div class="col-md-4">
             <div class="row">

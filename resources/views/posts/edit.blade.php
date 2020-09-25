@@ -1,8 +1,26 @@
 @extends('main')
 @section('title', '| Edit BLog Post')
+
+@section('stylesheets')
+
+    {!! Html::style('css/select2.min.css') !!}
+    <script src="https://cdn.tiny.cloud/1/8bs3eg4sapo4c7zuvhmrdm8s0anxo6o35x7qrpsuqhv2wnyr/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script>
+        tinymce.init({
+            selector:'textarea',
+            plugins: 'link code',
+            menubar: false,
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link',
+            default_link_target: '_blank'
+            });
+    </script>
+    
+@endsection
+
 @section('content')
     
-    {!! Form::model($post, ['route'=>['posts.update', $post->id], 'method'=>'PUT']) !!} 
+    {!! Form::model($post, ['route'=>['posts.update', $post->id], 'method'=>'PUT', 'files'=>true]) !!} 
     <div class=" form-group row my-4">
 
             <div class="col-md-8">
@@ -13,7 +31,13 @@
                     {{ Form::text('slug', null, ["class"=>'form-control'])}} 
 
                     {{ Form::label('category_id', 'Category:')}}
-                    {{ Form::select('category_id', $categories, null, ['class'=>'form-control']) }}                  
+                    {{ Form::select('category_id', $categories, null, ['class'=>'form-control']) }}   
+                    
+                    {{ Form::label('tags', 'Tags:')}}
+                    {{ Form::select('tags[]', $tags, null, ['class'=>'form-control select2-multiple', 'multiple']) }}
+
+                    {{ Form::label('featured_image', 'Update featured image:', ['class'=>'mt-4'])}}
+                    {{ Form::file('featured_image', ['class'=>'form-control mb-4'])}}
                     
 
                     {{ Form::label('body', 'Body:')}}
@@ -55,5 +79,21 @@
     </div>
     {!! Form::close() !!}
     
+    
+@endsection
+
+@section('scripts')
+
+    {!! Html::script('js/select2.min.js') !!}
+
+    <script type="text/javascript">
+         
+        $('.select2-multiple').select2();
+        
+
+    </script>
+   
+
+  
     
 @endsection
